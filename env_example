@@ -1,0 +1,7 @@
+# Env file. copy this file to `.env` and execute `source .env`
+
+# Uncomment the line below if you run enterprise github
+#export GITHUB_URL=http://your-enterprise-github/api/v3
+
+# Fill in your github token from https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
+export GITHUB_TOKEN=
