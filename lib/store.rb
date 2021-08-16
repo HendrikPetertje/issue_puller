@@ -1,13 +1,18 @@
 class Store
   require 'fileutils'
   require 'json'
+  require 'date'
 
   def self.to_file(repo, issues)
     matchgroup = repo.match(/^(.+?)\/(.+?)$/)
     dir = matchgroup[1]
     project = matchgroup[2]
 
-    json_issues = JSON.pretty_generate(issues)
+    file_contents = {
+      created_at: Time.now.utc,
+      issues: issues
+    }
+    json_issues = JSON.pretty_generate(file_contents)
 
     Dir.mkdir("out") unless File.exists?("out")
     Dir.mkdir("out/#{dir}") unless File.exists?("out/#{dir}")
