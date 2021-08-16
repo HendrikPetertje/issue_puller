@@ -8,6 +8,7 @@ class Github
     issues = Github.fetch_all_issues(repo)
     issues.each do |issue|
       issue['comments'] = (issue['comments'] >= 1) ? Github.fetch_all_meta(issue['comments_url']) : []
+      issue['events'] = Github.fetch_all_meta(issue['events_url'])
     end
 
     issues
