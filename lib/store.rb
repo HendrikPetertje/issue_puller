@@ -30,6 +30,18 @@ class Store
         comment_image_urls = comment['body'].scan(/\!\[.+?\]\((.+?)\)/).flatten
         image_urls.push(*comment_image_urls)
       end
+      if issue['pull_request']
+        (issue['pull_request']['review_comments'] || []).each do |rvc|
+          comment_image_urls = rvc['body'].scan(/\!\[.+?\]\((.+?)\)/).flatten
+          image_urls.push(*comment_image_urls)
+        end
+      end
+      if issue['pull_request']
+        (issue['pull_request']['reviews'] || []).each do |rv|
+          comment_image_urls = rv['body'].scan(/\!\[.+?\]\((.+?)\)/).flatten
+          image_urls.push(*comment_image_urls)
+        end
+      end
 
       image_urls.each { |url| Store.download_to_disk(url, out_folder, issue['number']) }
     end
@@ -47,7 +59,7 @@ class Store
       end
     end
   rescue
-    puts "Unable to store #{url} to #{out_folder}"
+    puts "Unable to store #{url} to #{out_folder}/#{issue_number}"
   end
 
 end
