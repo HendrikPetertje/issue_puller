@@ -24,8 +24,10 @@ class Store
   end
 
   def self.store_images_for(issues, out_folder)
+    puts issues.first.inspect
+
     issues.each do |issue|
-      image_urls = issue['body'].scan(/\!\[.+?\]\((.+?)\)/).flatten
+      image_urls = issue['body'] ? issue['body'].scan(/\!\[.+?\]\((.+?)\)/).flatten : []
       issue['comments'].each do |comment|
         comment_image_urls = comment['body'].scan(/\!\[.+?\]\((.+?)\)/).flatten
         image_urls.push(*comment_image_urls)
